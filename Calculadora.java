@@ -7,14 +7,12 @@ package calculadora;
 
 /**
  *
- * @author Brayansito
+ * @author Usuario
  */
 public class Calculadora {
-
     private String expresion;
 
     public Calculadora() {
-
     }
 
     public Calculadora(String expresion) {
@@ -27,167 +25,113 @@ public class Calculadora {
 
     public void setExpresion(String expresion) {
         this.expresion = expresion;
-    }
-
-    public int jerarquiaOperaciones(String simbolo) {
-        int res = -2;
-
-        if (simbolo.equals("+") || simbolo.equals("-")) {
-            res = -1;
-        } else {
-            if (simbolo.equals("*") || simbolo.equals("/")) {
-                res = 0;
-            } else {
-                if (simbolo.equals("^")) {
-                    res = 1;
-                }
-            }
+    } 
+    
+    public <T> int contarPila(PilaArre<T> pila) {
+        PilaArre<T> aux = new PilaArre();
+        int total = 0;
+        while(!pila.isEmpty()) {
+            aux.push(pila.pop());
+            total++;
         }
-
-        return res;
+        while(!aux.isEmpty())
+            pila.push(aux.pop());
+        return total;
     }
-
-    public boolean balanceoParentesis() {
+    
+    public boolean revisionSintaxis() {
         boolean res = true;
         int i;
-        PilaArre<Character> p = new PilaArre();
+        PilaArre<Character> operadores = new PilaArre();
+        PilaArre<Character> parentesis = new PilaArre();
+        PilaArre<Character> puntos = new PilaArre();
+        PilaArre<Character> signos = new PilaArre();
         char simbolo;
-
         i = 0;
         while (i < expresion.length() && res) {
             simbolo = expresion.charAt(i);
             switch (simbolo) {
                 case '(':
-                    p.push(simbolo);
+                    if(!signos.isEmpty())     
+                        if(signos.peek().equals(')'))
+                            res = false;
+                    parentesis.push(simbolo);                    
+                    signos.push(simbolo);                    
                     break;
                 case ')':
-                    if (p.isEmpty()) {
+                    if(parentesis.isEmpty())
                         res = false;
-                    } else {
-                        p.pop();
+                    else 
+                        parentesis.pop();                        
+                    if(!signos.isEmpty()) 
+                        if(signos.peek().equals('('))
+                            res = false;
+                    signos.push(simbolo);
+                    break;
+                case '+':
+                    if(!operadores.isEmpty())
+                        if(operadores.peek().equals('+') || operadores.peek().equals('-') || operadores.peek().equals('/') || operadores.peek().equals('*'))
+                            res = false;
+                    else {
+                        if(!puntos.isEmpty()) 
+                            puntos.pop();                     
+                        operadores.push(simbolo);
+                        signos.push(simbolo);
                     }
                     break;
+                case '-':
+                    if(!operadores.isEmpty())
+                        if(operadores.peek().equals('+') || operadores.peek().equals('-') || operadores.peek().equals('/') || operadores.peek().equals('*'))
+                            res = false;
+                    else {
+                        if(!puntos.isEmpty())
+                            puntos.pop();                      
+                        operadores.push(simbolo);
+                        signos.push(simbolo);
+                    }                  
+                    break;
+                case '*':
+                    if(operadores.isEmpty() || operadores.peek().equals('+') || operadores.peek().equals('-') || operadores.peek().equals('/') || operadores.peek().equals('*'))
+                        res = false;
+                    else {
+                        if(!puntos.isEmpty())
+                            puntos.pop();                       
+                        operadores.push(simbolo); 
+                        signos.push(simbolo);
+                    }                  
+                    break;
+                case '/':
+                    if(operadores.isEmpty() || operadores.peek().equals('+') || operadores.peek().equals('-') || operadores.peek().equals('/') || operadores.peek().equals('*'))
+                        res = false;
+                    else {
+                        if(!puntos.isEmpty())
+                            puntos.pop();
+                        operadores.push(simbolo);
+                        signos.push(simbolo);
+                    }                
+                    break;
+                case '.':
+                    if(puntos.isEmpty())
+                        puntos.push(simbolo);
+                    else
+                        res = false;
+                    operadores.push(simbolo);
+                    break;
+                default: 
+                    operadores.push(simbolo);
             }
             i++;
         }
-
-        return res && p.isEmpty();
-    }
-
-    public PilaArre<String> expresionCalculadora() {
-        PilaArre cad = new PilaArre();
-        String simbolo;
-        PilaADT<String> cal = new PilaArre();
-
-        if (balanceoParentesis()) {
-            String[] arre = expresion.split(" ");
-            for (int i = 0; i < arre.length; i++) {
-                simbolo = arre[i];
-                switch (simbolo) {
-                    case "(": //Parentesis izquierdo
-                        cal.push(simbolo);
-                        break;
-                    case "+": //operadores
-                    case "-":
-                    case "*":
-                    case "/":
-                    case "^":
-                        while (!cal.isEmpty() && (jerarquiaOperaciones(simbolo) <= jerarquiaOperaciones(cal.peek()))) {
-                            cad.push(cal.pop());
-                        }
-                        cal.push(simbolo);
-                        break;
-                    case ")": //Parentesis derecho
-                        while (!cal.isEmpty() && !cal.peek().equals("(")) {
-                            cad.push(cal.pop());
-                        }
-                        cal.pop();
-                        break;
-                    default: //operando
-                        cad.push(simbolo);
-                        break;
-                }
-            }
-        } else {
-            cad.push("Hay parentesis de más");
-        }
-
-        return cad;
-    }
-
-    public static <T> String imprime(PilaADT<T> PilaArre) { //siempre ADT para irme a lo genereal y que pueda incluir todo 
-        StringBuilder sb = new StringBuilder();
-        PilaArre<T> aux = new PilaArre();
-
-        while (!PilaArre.isEmpty()) {
-            sb.append(PilaArre.peek().toString() + "\n");
-            aux.push(PilaArre.pop());
-
-        }
-        while (!aux.isEmpty()) {
-            PilaArre.push(aux.pop());
-        }
-        return sb.toString();
-
-    }
-
-    public boolean esSigno(String X) {
-        return (X.equals("+") || X.equals("-") || X.equals("*") || X.equals("/") || X.equals("^"));
-    }
-
-    public String resuelve() {
-        PilaArre<String> post = expresionCalculadora();
-        PilaArre<String> aux = new PilaArre();
-        PilaArre<String> temp = new PilaArre();
-        String elem = "", var1, var2;
-
-        while (!post.isEmpty()) {
-            if (esSigno(post.peek())) {
-                elem = post.pop();
-                if (esSigno(post.peek())) {
-                    aux.push(elem);
-                    elem = post.pop();
-                } else {
-                    temp.push(post.pop());
-                }
-
-            } else {
-                var2 = temp.peek();
-                var1 = post.pop();
-                switch (elem) {
-                    case "+":
-                        post.push(Double.toString(Double.parseDouble(var1) + (Double.parseDouble(var2))));
-                        break;
-                    case "-":
-                        post.push(Double.toString(Double.parseDouble(var1) - (Double.parseDouble(var2))));
-                        break;
-                    case "*":
-                        post.push(Double.toString(Double.parseDouble(var1) * (Double.parseDouble(var2))));
-                        break;
-                    case "/":
-                        post.push(Double.toString(Double.parseDouble(var1) / (Double.parseDouble(var2))));
-                        break;
-
-                }
-                if(!aux.isEmpty()){
-                    elem = aux.pop();
-                }else {
-                    elem= post.pop();
-                }
-
-            }
-
-        }
-        return elem;
-
-    }
-
+        if(!operadores.isEmpty())
+            if(operadores.peek().equals('+') || operadores.peek().equals('-') || operadores.peek().equals('/') || operadores.peek().equals('*'))
+                res = false;
+        if(!parentesis.isEmpty())
+            res = false;
+        return res;
+    }  
+    
     public static void main(String[] args) {
-        Calculadora cal = new Calculadora("( ( 2 / 5 ) ) * ( -5.0 + 25 )");
-        System.out.println(imprime(cal.expresionCalculadora()));
-
-        System.out.println(cal.resuelve());
-
-    }
-
+        Calculadora cal = new Calculadora("+((5/2+3)+((5/2)))");
+        System.out.println(cal.revisionSintaxis());
+    }   
 }
