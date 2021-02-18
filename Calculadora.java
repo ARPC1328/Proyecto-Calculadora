@@ -27,18 +27,6 @@ public class Calculadora {
         this.expresion = expresion;
     } 
     
-    public <T> int contarPila(PilaArre<T> pila) {
-        PilaArre<T> aux = new PilaArre();
-        int total = 0;
-        while(!pila.isEmpty()) {
-            aux.push(pila.pop());
-            total++;
-        }
-        while(!aux.isEmpty())
-            pila.push(aux.pop());
-        return total;
-    }
-    
     public boolean revisionSintaxis() {
         boolean res = true;
         int i;
