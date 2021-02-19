@@ -37,18 +37,23 @@ public class Calculadora {
        while (i < expresion.length()){
            simbolo = expresion.charAt(i);
            if (simbolo == '-'){
-               if (Integer.parseInt(String.valueOf(expresion.charAt(i+1)))>0 || Integer.parseInt(String.valueOf(expresion.charAt(i+1)))<0){
-                  cad.append (expresion.charAt(i) + " ");
-               }   
-               else{
-                   cad.append(expresion.charAt(i));
-                   cad.append(expresion.charAt(i+1));
-                   cad.append (" ");
-                   i++;
+               if (expresion.charAt(i+1) == '-'){
+                  cad.append(simbolo);
+                  cad.append (" ");
+                  cad.append (expresion.charAt(i+1));
+                  cad.append (expresion.charAt(i+2));
+                  i+=2;
+               }
+               else {
+                  cad.append(simbolo);
+                  cad.append(expresion.charAt(i+1));
+                  cad.append (" ");
+                  i++;
                }
            }
            else {
-               cad.append (expresion.charAt(i) + " ");
+               cad.append (expresion.charAt(i));
+               cad.append(" ");
            }
            i++;
        }
@@ -70,14 +75,14 @@ public class Calculadora {
         return res;
     }
    
-    public PilaADT<String> expresionCalculadora() {
+    public PilaADT<String> expresionCalculadora(String expresionD) {
         PilaArre cad = new PilaArre();
         String simbolo;
         PilaADT<String> cal = new PilaArre();
         String[] arre;
 
         if (revisionSintaxis()) {
-            arre = expresion.split(" ");
+            arre = expresionD.split(" ");
             for (int i = 0; i < arre.length; i++) {
                 simbolo = arre[i];
                 switch (simbolo) {
@@ -106,7 +111,7 @@ public class Calculadora {
                 }
             }
             while (!cal.isEmpty()){
-                arre = expresion.split(" ");
+                arre = expresionD.split(" ");
                 cad.push(cal.pop());
             }
         } else {
@@ -263,7 +268,10 @@ public class Calculadora {
     }            
    
     public static void main(String[] args) {
-        Calculadora cal = new Calculadora("9/5");
+        Calculadora cal = new Calculadora("9+-5/-4+9*8+(8*9)--5");
+        
+        System.out.println (cal.agregaEspacios());
+        System.out.println (cal.resuelveExpresion(cal.expresionCalculadora(cal.agregaEspacios())));
        
     }
 }   
