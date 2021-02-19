@@ -28,7 +28,34 @@ public class Calculadora {
     public void setExpresion(String expresion) {
         this.expresion = expresion;
     }
-
+    
+    public String agregaEspacios(){
+        StringBuilder cad = new StringBuilder();
+        int i=0;
+        char simbolo;
+        
+       while (i < expresion.length()){
+           simbolo = expresion.charAt(i);
+           if (simbolo == '-'){
+               if (Integer.parseInt(String.valueOf(expresion.charAt(i+1)))>0 || Integer.parseInt(String.valueOf(expresion.charAt(i+1)))<0){
+                  cad.append (expresion.charAt(i) + " ");
+               }   
+               else{
+                   cad.append(expresion.charAt(i));
+                   cad.append(expresion.charAt(i+1));
+                   cad.append (" ");
+                   i++;
+               }
+           }
+           else {
+               cad.append (expresion.charAt(i) + " ");
+           }
+           i++;
+       }
+        
+        return cad.toString();
+    }
+    
     public int jerarquiaOperaciones(String simbolo) {
         int res = -2;
 
@@ -42,41 +69,14 @@ public class Calculadora {
 
         return res;
     }
-
-    public boolean balanceoParentesis() {
-        boolean res = true;
-        int i;
-        PilaArre<Character> p = new PilaArre();
-        char simbolo;
-
-        i = 0;
-        while (i < expresion.length() && res) {
-            simbolo = expresion.charAt(i);
-            switch (simbolo) {
-                case '(':
-                    p.push(simbolo);
-                    break;
-                case ')':
-                    if (p.isEmpty()) {
-                        res = false;
-                    } else {
-                        p.pop();
-                    }
-                    break;
-            }
-            i++;
-        }
-
-        return res && p.isEmpty();
-    }
-
+   
     public PilaADT<String> expresionCalculadora() {
         PilaArre cad = new PilaArre();
         String simbolo;
         PilaADT<String> cal = new PilaArre();
         String[] arre;
 
-        if (balanceoParentesis()) {
+        if (revisionSintaxis()) {
             arre = expresion.split(" ");
             for (int i = 0; i < arre.length; i++) {
                 simbolo = arre[i];
@@ -263,15 +263,7 @@ public class Calculadora {
     }            
    
     public static void main(String[] args) {
-        Calculadora cal = new Calculadora("3 + 9 / 0");
-        PilaADT<String> pila = new PilaArre();
-        //Calculadora cal2 = new Calculadora ();
-        
-        pila = cal.expresionCalculadora();
-        System.out.println (imprime (pila));
-        System.out.println (cal.resuelveExpresion(pila));
-        
-
+        Calculadora cal = new Calculadora("9/5");
+       
     }
 }   
-
