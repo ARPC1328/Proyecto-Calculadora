@@ -5,8 +5,6 @@
  */
 package calculadora;
 
-import java.text.DecimalFormat;
-
 /**
  *
  * @author Brayansito
@@ -133,10 +131,6 @@ public class Calculadora {
         return sb.toString();
 
     }
-
-    public boolean esSigno(String X) {
-        return (X.equals("+") || X.equals("-") || X.equals("*") || X.equals("/") || X.equals("^"));
-    }
     
     public boolean revisionSintaxis() {
         boolean res = true;
@@ -180,16 +174,12 @@ public class Calculadora {
                         }
                         break;
                     case '-':
-                        if(!operadores.isEmpty())
-                            if(operadores.peek().equals('+') || operadores.peek().equals('-') || operadores.peek().equals('/') || operadores.peek().equals('*'))
-                                res = false;
-                        else {
-                            if(!puntos.isEmpty())
-                                puntos.pop();                      
-                            operadores.push(simbolo);
-                            signos.push(simbolo);
-                        }                  
-                        break;
+                        if (!puntos.isEmpty()){
+                            puntos.pop();
+                        }
+                        operadores.push(simbolo);
+                        signos.push(simbolo);
+                    break;
                     case '*':
                         if(operadores.isEmpty() || operadores.peek().equals('+') || operadores.peek().equals('-') || operadores.peek().equals('/') || operadores.peek().equals('*'))
                             res = false;
@@ -273,7 +263,7 @@ public class Calculadora {
     }            
    
     public static void main(String[] args) {
-        Calculadora cal = new Calculadora("9 / -1");
+        Calculadora cal = new Calculadora("3 + 9 / 0");
         PilaADT<String> pila = new PilaArre();
         //Calculadora cal2 = new Calculadora ();
         
