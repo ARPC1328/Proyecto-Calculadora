@@ -178,11 +178,20 @@ public class Calculadora {
                 res = false;
         if(!parentesis.isEmpty())
             res = false;
+        if(!casoCero.isEmpty()) {
+            cero = contarPila(casoCero);
+            total = 0;
+            while(!casoCero.isEmpty()) 
+                if(casoCero.pop().equals('0'))
+                    total++;
+            if(cero == total)
+                res = false;
+        }
         return res;
     }  
     
     public static void main(String[] args) {
-        Calculadora cal = new Calculadora("-((5/(0-5))+((5/2.0)))");
+        Calculadora cal = new Calculadora("5/0.0");
         System.out.println(cal.revisionSintaxis());
     }   
 }
