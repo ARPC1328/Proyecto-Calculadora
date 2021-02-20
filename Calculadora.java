@@ -162,16 +162,17 @@ public class Calculadora {
                         if(!puntos.isEmpty()) 
                             puntos.pop();                     
                         operadores.push(simbolo);
-                        if(signos.peek().equals('/'))
-                            if(!division.isEmpty()) {
-                                cero = contarPila(casoCero);
-                                total = 0;
-                                while(!casoCero.isEmpty()) 
-                                    if(casoCero.pop().equals('0'))
-                                        total++;
-                                if(cero == total)
-                                    res = false;
-                                division.pop();
+                        if(!signos.isEmpty())
+                            if(signos.peek().equals('/'))
+                                if(!division.isEmpty()) {
+                                    cero = contarPila(casoCero);
+                                    total = 0;
+                                    while(!casoCero.isEmpty()) 
+                                        if(casoCero.pop().equals('0'))
+                                            total++;
+                                    if(cero == total)
+                                        res = false;
+                                    division.pop();
                         }  
                         signos.push(simbolo);
                     }
