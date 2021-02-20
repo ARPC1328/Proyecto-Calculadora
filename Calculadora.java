@@ -32,31 +32,49 @@ public class Calculadora {
     public String agregaEspacios(){
         StringBuilder cad = new StringBuilder();
         int i=0;
+        PilaADT<String> exp = new PilaArre();
+        String str;
         char simbolo;
         
-       while (i < expresion.length()){
-           simbolo = expresion.charAt(i);
-           if (simbolo == '-'){
-               if (expresion.charAt(i+1) == '-'){
-                  cad.append(simbolo);
-                  cad.append (" ");
-                  cad.append (expresion.charAt(i+1));
-                  cad.append (expresion.charAt(i+2));
-                  i+=2;
-               }
-               else {
-                  cad.append(simbolo);
-                  cad.append(expresion.charAt(i+1));
-                  cad.append (" ");
-                  i++;
-               }
-           }
-           else {
-               cad.append (expresion.charAt(i));
-               cad.append(" ");
-           }
-           i++;
-       }
+        while (i < expresion.length()){
+            simbolo = expresion.charAt(i);
+       
+            if (simbolo != '+' && simbolo != '/' && simbolo != '*' && simbolo !='-' && simbolo!= '(' && simbolo!= ')'){
+                cad.append (simbolo);
+            }
+            else {
+                if (simbolo == '-'){
+                    if (expresion.charAt(i+1) == '-'){
+                        cad.append(" ");
+                        cad.append(simbolo);
+                        cad.append(" ");
+                        cad.append(expresion.charAt(i+1));
+                        i++;
+                    }
+                    else {
+                        cad.append (simbolo);
+                    }
+                }
+                else {
+                    if (simbolo == '('){
+                        cad.append(simbolo);
+                        cad.append (" ");
+                    }
+                    else {
+                        if (simbolo == ')'){
+                           cad.append (" "); 
+                           cad.append (simbolo); 
+                        }
+                        else {
+                           cad.append(" ");
+                           cad.append(simbolo);
+                           cad.append (" "); 
+                        }
+                    }
+                }     
+            }
+            i++;
+        }
         
         return cad.toString();
     }
@@ -268,10 +286,10 @@ public class Calculadora {
     }            
    
     public static void main(String[] args) {
-        Calculadora cal = new Calculadora("9+-5/-4+9*8+(8*9)--5");
+        Calculadora cal = new Calculadora("((80.05--9.003))+42.69/5.3*-8.5");
         
-        System.out.println (cal.agregaEspacios());
         System.out.println (cal.resuelveExpresion(cal.expresionCalculadora(cal.agregaEspacios())));
-       
+        
     }
 }   
+ 
