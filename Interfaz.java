@@ -404,6 +404,7 @@ public class Interfaz extends javax.swing.JFrame {
         //INSERTAR FUNCIONALIDAD AQUI
         textoTF = respuestaTF.getText();
         respuestaTF.setText("CALCULAR");
+        tieneMenos = false;
     }//GEN-LAST:event_igualBTActionPerformed
 
     private void puntoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puntoBTActionPerformed
@@ -412,6 +413,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void cBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cBTActionPerformed
         respuestaTF.setText("");
+        tieneMenos = false;
     }//GEN-LAST:event_cBTActionPerformed
 
     /**
