@@ -323,7 +323,7 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pAbiertoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pAbiertoBTActionPerformed
-        respuestaTF.setText(respuestaTF.getText() + "(");
+        respuestaTF.setText(respuestaTF.getText() + "( ");
     }//GEN-LAST:event_pAbiertoBTActionPerformed
 
     private void respuestaTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_respuestaTFActionPerformed
@@ -331,11 +331,11 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_respuestaTFActionPerformed
 
     private void pCerradoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pCerradoBTActionPerformed
-        respuestaTF.setText(respuestaTF.getText() + ")");
+        respuestaTF.setText(respuestaTF.getText() + " )");
     }//GEN-LAST:event_pCerradoBTActionPerformed
 
     private void dividirBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dividirBTActionPerformed
-        respuestaTF.setText(respuestaTF.getText() + "/");
+        respuestaTF.setText(respuestaTF.getText() + " / ");
     }//GEN-LAST:event_dividirBTActionPerformed
 
     private void sieteBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sieteBTActionPerformed
@@ -351,7 +351,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_nueveBTActionPerformed
 
     private void multiplicaBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplicaBTActionPerformed
-        respuestaTF.setText(respuestaTF.getText() + "x");
+        respuestaTF.setText(respuestaTF.getText() + " x ");
     }//GEN-LAST:event_multiplicaBTActionPerformed
 
     private void cuatroBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroBTActionPerformed
@@ -367,7 +367,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_seisBTActionPerformed
 
     private void menosBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menosBTActionPerformed
-        respuestaTF.setText(respuestaTF.getText() + "-");
+        respuestaTF.setText(respuestaTF.getText() + " - ");
     }//GEN-LAST:event_menosBTActionPerformed
 
     private void unoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unoBTActionPerformed
@@ -383,7 +383,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_tresBTActionPerformed
 
     private void masBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_masBTActionPerformed
-        respuestaTF.setText(respuestaTF.getText() + "+");
+        respuestaTF.setText(respuestaTF.getText() + " + ");
     }//GEN-LAST:event_masBTActionPerformed
 
     private void ceroBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ceroBTActionPerformed
