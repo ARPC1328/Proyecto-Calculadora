@@ -3,15 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package calculadora;
 
+import java.util.ArrayList;
+
 /**
- *
- * @author Brayansito
+ * 
+ * @author Anthoan J.O. <djuarezo@itam.mx>
  */
 public class Calculadora {
 
-    private String expresion;
+ private String expresion;
 
     public Calculadora() {
 
@@ -205,8 +208,8 @@ public class Calculadora {
                 res = false;
         }
         return res;
-    }  
-    
+    }
+
     public PilaADT<String> expresionCalculadora() {
         PilaArre cad = new PilaArre();
         String simbolo;
@@ -253,51 +256,63 @@ public class Calculadora {
         return cad;
     }
     
-    public double resuelveExpresion(PilaADT<String> pila){
-        double res = 0;
-        PilaADT <String> aux = new PilaArre();
-        PilaADT <String> aux1 = new PilaArre();
-        PilaADT <String> aux2 = new PilaArre();
-        String simbolo;
-        
-        while (!pila.isEmpty()){
-            aux.push(pila.pop());
-        }
-        
-        while (!aux.isEmpty()){
-            simbolo = aux.pop();
-            switch (simbolo){
-                case "+":
-                    res = Double.parseDouble(aux1.pop()) + Double.parseDouble(aux1.pop());
-                    aux1.push(String.valueOf(res));
-                break;    
-                case "-":
-                    aux2.push(aux1.pop());
-                    res = Double.parseDouble(aux1.pop()) - Double.parseDouble(aux2.pop());
-                    aux1.push(String.valueOf(res));
-                break;
-                case "*":    
-                    res = Double.parseDouble(aux1.pop()) * Double.parseDouble(aux1.pop());
-                    aux1.push(String.valueOf(res));
-                break;
-                case "/":
-                    aux2.push(aux1.pop());
-                    res = Double.parseDouble(aux1.pop()) / Double.parseDouble(aux2.pop());  
-                    aux1.push(String.valueOf(res));
-                break;
-                default:
-                    aux1.push(simbolo);
-                break;    
+        public String resuelveExpresion(PilaADT<String> pila){
+            double res = 0;
+            String res2;
+
+            PilaADT <String> aux = new PilaArre();
+            PilaADT <String> aux1 = new PilaArre();
+            PilaADT <String> aux2 = new PilaArre();
+            String simbolo;
+
+            if(revisionSintaxis()){
+                while (!pila.isEmpty()){
+                    aux.push(pila.pop());
+                }
+
+            while (!aux.isEmpty()){
+                simbolo = aux.pop();
+                switch (simbolo){
+                    case "+":
+                        res = Double.parseDouble(aux1.pop()) + Double.parseDouble(aux1.pop());
+                        aux1.push(String.valueOf(res));
+                    break;    
+                    case "-":
+                        aux2.push(aux1.pop());
+                        res = Double.parseDouble(aux1.pop()) - Double.parseDouble(aux2.pop());
+                        aux1.push(String.valueOf(res));
+                    break;
+                    case "*":    
+                        res = Double.parseDouble(aux1.pop()) * Double.parseDouble(aux1.pop());
+                        aux1.push(String.valueOf(res));
+                    break;
+                    case "/":
+                        aux2.push(aux1.pop());
+                        res = Double.parseDouble(aux1.pop()) / Double.parseDouble(aux2.pop());  
+                        aux1.push(String.valueOf(res));
+                    break;
+                    default:
+                        aux1.push(simbolo);
+                    break;    
+                }
             }
-        }
-        
-        return Double.parseDouble(aux1.peek());
-    }            
+
+                res= Double.parseDouble(aux1.peek());
+                res2=String.valueOf(res);
+            }
+            else{
+                res2="E R R O R";
+            }
+                return  res2;
+
+
+        }            
    
     public static void main(String[] args) {
-        Calculadora cal = new Calculadora("20 - 8");
-        Calculadora cal2 = new Calculadora ("9.58 / -88.555");
+
+        Calculadora cal2 = new Calculadora ("5..0 + 0");
         
+        System.err.println(cal2.revisionSintaxis());
         System.out.println (cal2.resuelveExpresion(cal2.expresionCalculadora()));
         
     }
