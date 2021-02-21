@@ -13,8 +13,6 @@ public class Calculadora {
 
     private String expresion;
 
-   private String expresion;
-
     public Calculadora() {
 
     }
@@ -31,56 +29,6 @@ public class Calculadora {
         this.expresion = expresion;
     }
     
-    public String agregaEspacios(){
-        StringBuilder cad = new StringBuilder();
-        int i=0;
-        PilaADT<String> exp = new PilaArre();
-        String str;
-        char simbolo;
-        
-        while (i < expresion.length()){
-            simbolo = expresion.charAt(i);
-       
-            if (simbolo != '+' && simbolo != '/' && simbolo != '*' && simbolo !='-' && simbolo!= '(' && simbolo!= ')'){
-                cad.append (simbolo);
-            }
-            else {
-                if (simbolo == '-'){
-                    if (expresion.charAt(i+1) == '-'){
-                        cad.append(" ");
-                        cad.append(simbolo);
-                        cad.append(" ");
-                        cad.append(expresion.charAt(i+1));
-                        i++;
-                    }
-                    else {
-                        cad.append (simbolo);
-                    }
-                }
-                else {
-                    if (simbolo == '('){
-                        cad.append(simbolo);
-                        cad.append (" ");
-                    }
-                    else {
-                        if (simbolo == ')'){
-                           cad.append (" "); 
-                           cad.append (simbolo); 
-                        }
-                        else {
-                           cad.append(" ");
-                           cad.append(simbolo);
-                           cad.append (" "); 
-                        }
-                    }
-                }     
-            }
-            i++;
-        }
-        
-        return cad.toString();
-    }
-    
     public int jerarquiaOperaciones(String simbolo) {
         int res = -2;
 
@@ -94,6 +42,7 @@ public class Calculadora {
 
         return res;
     }
+    
     public <T> int contarPila(PilaArre<T> pila) {
         PilaArre<T> aux = new PilaArre();
         int total = 0;
@@ -258,14 +207,14 @@ public class Calculadora {
         return res;
     }  
     
-    public PilaADT<String> expresionCalculadora(String expresionD) {
+    public PilaADT<String> expresionCalculadora() {
         PilaArre cad = new PilaArre();
         String simbolo;
         PilaADT<String> cal = new PilaArre();
         String[] arre;
 
         if (revisionSintaxis()) {
-            arre = expresionD.split(" ");
+            arre = expresion.split(" ");
             for (int i = 0; i < arre.length; i++) {
                 simbolo = arre[i];
                 switch (simbolo) {
@@ -294,7 +243,7 @@ public class Calculadora {
                 }
             }
             while (!cal.isEmpty()){
-                arre = expresionD.split(" ");
+                arre = expresion.split(" ");
                 cad.push(cal.pop());
             }
         } else {
@@ -303,7 +252,6 @@ public class Calculadora {
 
         return cad;
     }
-
     
     public double resuelveExpresion(PilaADT<String> pila){
         double res = 0;
@@ -343,16 +291,14 @@ public class Calculadora {
             }
         }
         
-        return Double.parseDouble (aux1.peek());
+        return Double.parseDouble(aux1.peek());
     }            
    
     public static void main(String[] args) {
-        Calculadora cal = new Calculadora("6-+0");
+        Calculadora cal = new Calculadora("20 - 8");
+        Calculadora cal2 = new Calculadora ("9.58 / -88.555");
         
-        System.out.println(cal.agregaEspacios());
-        System.out.println(cal.revisionSintaxis());
-        System.out.println (cal.resuelveExpresion(cal.expresionCalculadora(cal.agregaEspacios())));
+        System.out.println (cal2.resuelveExpresion(cal2.expresionCalculadora()));
         
     }
 }
- 
