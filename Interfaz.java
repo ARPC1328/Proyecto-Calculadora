@@ -11,10 +11,7 @@ package calculadora;
  */
 public class Interfaz extends javax.swing.JFrame {
     
-    /**
-     * Creates new form calculadora
-     */
-    
+    protected static Calculadora cal;
     
     public Interfaz() {
         initComponents();
@@ -391,20 +388,16 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_ceroBTActionPerformed
 
     private void signoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signoBTActionPerformed
-            textoTF = respuestaTF.getText();
-            tieneMenos = !tieneMenos;
-            if(tieneMenos)
-                respuestaTF.setText("-(" + textoTF);
-            else
-                respuestaTF.setText(textoTF.substring(2, textoTF.endsWith(")") ? textoTF.length()- 1 :textoTF.length()));
-            
+        respuestaTF.setText(respuestaTF.getText() + "-");
     }//GEN-LAST:event_signoBTActionPerformed
 
     private void igualBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_igualBTActionPerformed
-        //INSERTAR FUNCIONALIDAD AQUI
-        textoTF = respuestaTF.getText();
-        respuestaTF.setText("CALCULAR");
-        tieneMenos = false;
+        double res = 0;
+        cal = new Calculadora (respuestaTF.getText());
+        
+        res = cal.resuelveExpresion(cal.expresionCalculadora());
+        
+        respuestaTF.setText(String.valueOf(res));
     }//GEN-LAST:event_igualBTActionPerformed
 
     private void puntoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puntoBTActionPerformed
