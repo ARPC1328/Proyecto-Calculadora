@@ -348,7 +348,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_nueveBTActionPerformed
 
     private void multiplicaBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplicaBTActionPerformed
-        respuestaTF.setText(respuestaTF.getText() + " x ");
+        respuestaTF.setText(respuestaTF.getText() + " * ");
     }//GEN-LAST:event_multiplicaBTActionPerformed
 
     private void cuatroBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuatroBTActionPerformed
@@ -392,12 +392,12 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_signoBTActionPerformed
 
     private void igualBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_igualBTActionPerformed
-        double res = 0;
+        String res;
         cal = new Calculadora (respuestaTF.getText());
         
-        res = cal.resuelveExpresion(cal.expresionCalculadora());
+        res= cal.resuelveExpresion(cal.expresionCalculadora());
         
-        respuestaTF.setText(String.valueOf(res));
+        respuestaTF.setText(res);
     }//GEN-LAST:event_igualBTActionPerformed
 
     private void puntoBTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puntoBTActionPerformed
