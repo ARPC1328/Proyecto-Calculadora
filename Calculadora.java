@@ -9,29 +9,54 @@ package calculadora;
 import java.util.ArrayList;
 
 /**
- * 
- * @author Anthoan J.O. <djuarezo@itam.mx>
+ * Clase del objeto Calculadora usado para resolver la expresión incertada en la interfaz visual.
+ * @author Anthoan, Andrés, Alejandro, Brayan, Fernando.
+ * @version 1.0
  */
 public class Calculadora {
 
  private String expresion;
 
+ /**
+ * Constructor vacio para la clase Calculadora.
+ */
     public Calculadora() {
 
     }
 
+ /**
+ * Constructor para la clase Calculadora.
+ * @param expresion: la expresión a calcular expresada como String.
+ */
     public Calculadora(String expresion) {
         this.expresion = expresion;
     }
 
+ /**
+ * Getter para obtener la expresión
+ * @return la expresión en formato String.
+ */
     public String getExpresion() {
         return expresion;
     }
-
+ 
+/**
+ * Setter para establecer la expresión
+ * @param expresion: la expresión en formato String.
+ */
     public void setExpresion(String expresion) {
         this.expresion = expresion;
     }
     
+ /**
+ * Función para determinar la jerarquia de operaciones
+ * @param simbolo: un símbolo de operación +,-,*,/
+ * @return <pre>
+ * -2: Si el símbolo no es +,-,*,/.
+ * -1: Si el símbolo es + o -.
+ * 0: Si el símbolo es * o /.
+ * </pre>
+ */
     public int jerarquiaOperaciones(String simbolo) {
         int res = -2;
 
@@ -45,8 +70,15 @@ public class Calculadora {
 
         return res;
     }
-    
-    public <T> int contarPila(PilaADT<T> pila) {
+
+ /**
+ * Cuenta los elementos que contiene una pila
+ * @param pila: la pila a la que queremos contar sus elementos.
+ * @return <pre> 
+ * Un entero indicado el número de elementos que contiene la pila.
+ * </pre>
+ */
+ public <T> int contarPila(PilaADT<T> pila) {
         PilaADT<T> aux = new PilaArre();
         int total = 0;
         while(!pila.isEmpty()) {
@@ -58,6 +90,12 @@ public class Calculadora {
         return total;
     }
     
+ /**
+ * Revisa si la sintaxis de la expresión es correcta
+ * @see contarPila.
+ * @return true: Si la sintaxis es correcta.
+ * false: Si la sintaxis es incorrecta.
+ */
     public boolean revisionSintaxis() {
         boolean res = true;
         int i, total, cero;
@@ -213,6 +251,14 @@ public class Calculadora {
         return res;
     }  
 
+  /**
+ * Esta función convierte en expresión post-fija si el sintaxis es correcto.
+ * @see jerarquiaOperaciones
+ * @return <pre>
+ * Si la expresión tiene un error de Sintaxis la función regresará "E R R O R S I N T A X I S".
+ * Si la expresión no tiene error de sintaxis, regresará una Pila con la expresión Post-Fija.
+ *  </pre>
+ */
     public PilaADT<String> expresionCalculadora() {
         PilaADT cad = new PilaArre();
         String simbolo;
@@ -259,6 +305,15 @@ public class Calculadora {
         return cad;
     }
     
+ /**
+ * Realiza las operaciónes 
+ * @param pila: Una Pila conteniendo una expresión Post-Fija con el sintaxis correcto.
+ * @see revisionSintaxis.
+ * @return <pre> 
+ * Si existe algún error regresa "E R R O R"
+ * Si no existe algún error, regresa un String con el resultado de la operación.
+ * </pre>
+ */
     public String resuelveExpresion(PilaADT<String> pila){
             double res = 0;
             String res2;
