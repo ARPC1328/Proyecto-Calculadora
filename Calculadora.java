@@ -1,4 +1,4 @@
-/*
+//*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -46,8 +46,8 @@ public class Calculadora {
         return res;
     }
     
-    public <T> int contarPila(PilaArre<T> pila) {
-        PilaArre<T> aux = new PilaArre();
+    public <T> int contarPila(PilaADT<T> pila) {
+        PilaADT<T> aux = new PilaArre();
         int total = 0;
         while(!pila.isEmpty()) {
             aux.push(pila.pop());
@@ -61,14 +61,15 @@ public class Calculadora {
     public boolean revisionSintaxis() {
         boolean res = true;
         int i, total, cero;
-        PilaArre<Character> operadores = new PilaArre();
-        PilaArre<Character> parentesis = new PilaArre();
-        PilaArre<Character> parentesis2 = new PilaArre();
-        PilaArre<Character> puntos = new PilaArre();
-        PilaArre<Character> signos = new PilaArre();
-        PilaArre<Character> division = new PilaArre();
-        PilaArre<Character> casoCero = new PilaArre();
+        PilaADT<Character> operadores = new PilaArre();
+        PilaADT<Character> parentesis = new PilaArre();
+        PilaADT <Character> parentesis2 = new PilaArre();
+        PilaADT <Character> puntos = new PilaArre();
+        PilaADT <Character> signos = new PilaArre();
+        PilaADT <Character> division = new PilaArre();
+        PilaADT <Character> casoCero = new PilaArre();
         char simbolo;
+        
         i = 0;
         while (i < expresion.length() && res) {
             simbolo = expresion.charAt(i);
@@ -213,7 +214,7 @@ public class Calculadora {
     }  
 
     public PilaADT<String> expresionCalculadora() {
-        PilaArre cad = new PilaArre();
+        PilaADT cad = new PilaArre();
         String simbolo;
         PilaADT<String> cal = new PilaArre();
         String[] arre;
@@ -258,10 +259,9 @@ public class Calculadora {
         return cad;
     }
     
-        public String resuelveExpresion(PilaADT<String> pila){
+    public String resuelveExpresion(PilaADT<String> pila){
             double res = 0;
             String res2;
-
             PilaADT <String> aux = new PilaArre();
             PilaADT <String> aux1 = new PilaArre();
             PilaADT <String> aux2 = new PilaArre();
@@ -305,17 +305,7 @@ public class Calculadora {
             else{
                 res2="E R R O R";
             }
-                return  res2;
-
-
+           
+            return  res2;
         }            
-   
-    public static void main(String[] args) {
-
-        Calculadora cal2 = new Calculadora ("5..0 + 0");
-        
-        System.err.println(cal2.revisionSintaxis());
-        System.out.println (cal2.resuelveExpresion(cal2.expresionCalculadora()));
-        
-    }
 }
