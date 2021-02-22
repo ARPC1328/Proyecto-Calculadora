@@ -6,8 +6,21 @@
 package calculadora;
 
 /**
- *
- * @author fernando
+* Interfaz Gráfica de la Calculadora
+ * @author Anthoan, Andrés, Alejandro, Brayan, Fernando.
+ * @version 1.0
+ * * <pre>
+ * <strong>C</strong> : Botón para limpiar ecuación.
+ * <strong>+/-</strong> : Botón para insertar signo negativo.
+ * <strong>0-9</strong> : Botones para insertar los números del 0-9
+ * <strong>() </strong>: Botones para insertar paréntesis.
+ * <strong>x </strong>: Botón para insertar multiplicación.
+ * <strong>- </strong>: Botón para insertar resta
+ * <strong>+ </strong>: Botón para insertar suma.
+ * <strong>÷ </strong>: Botón para insertar división.
+ * <strong>= </strong>: Botón para calcular y mostrar el resultado, creando un Objeto Calculadora para realizar la operación.
+ * Cada botón tiene su función ActionPerformed correspondiente para cumplir con el funcionamiento.
+ * </pre> 
  */
 public class Interfaz extends javax.swing.JFrame {
     
